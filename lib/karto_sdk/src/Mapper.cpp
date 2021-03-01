@@ -2786,6 +2786,11 @@ kt_bool Mapper::ProcessAgainstNodesNearBy(LocalizedRangeScan * pScan)
 
       m_pMapperSensorManager->SetLastScan(pScan);
 
+      LocalizationScanVertex lsv;
+      lsv.scan = pScan;
+      lsv.vertex = scan_vertex;
+      m_LocalizationScanVertices.push(lsv);
+
       // generate the info to store and later decay, outside of dataset
       if (m_LocalizationScanVertices.size() > getParamScanBufferSize()) {
         LocalizationScanVertex & oldLSV = m_LocalizationScanVertices.front();
@@ -2803,11 +2808,6 @@ kt_bool Mapper::ProcessAgainstNodesNearBy(LocalizedRangeScan * pScan)
 
         m_LocalizationScanVertices.pop();
       }
-
-      LocalizationScanVertex lsv;
-      lsv.scan = pScan;
-      lsv.vertex = scan_vertex;
-      m_LocalizationScanVertices.push(lsv);
 
       return true;
     }
@@ -2888,6 +2888,11 @@ kt_bool Mapper::ProcessLocalization(LocalizedRangeScan * pScan)
 
   m_pMapperSensorManager->SetLastScan(pScan);
 
+  LocalizationScanVertex lsv;
+  lsv.scan = pScan;
+  lsv.vertex = scan_vertex;
+  m_LocalizationScanVertices.push(lsv);
+
   // generate the info to store and later decay, outside of dataset
   if (m_LocalizationScanVertices.size() > getParamScanBufferSize()) {
     LocalizationScanVertex & oldLSV = m_LocalizationScanVertices.front();
@@ -2905,11 +2910,6 @@ kt_bool Mapper::ProcessLocalization(LocalizedRangeScan * pScan)
 
     m_LocalizationScanVertices.pop();
   }
-
-  LocalizationScanVertex lsv;
-  lsv.scan = pScan;
-  lsv.vertex = scan_vertex;
-  m_LocalizationScanVertices.push(lsv);
 
   return true;
 }
